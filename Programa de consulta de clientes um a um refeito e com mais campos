@@ -1,0 +1,46 @@
+*&---------------------------------------------------------------------*
+*& Report  ZCLIENTES_2_0415
+*&
+*&---------------------------------------------------------------------*
+*&
+*&
+*&---------------------------------------------------------------------*
+
+REPORT ZCLIENTES_2_0415.
+
+types: begin of ty_kna1,
+       kunnr type kna1-kunnr,
+       name1 type kna1-name1,
+       name2 type kna1-name2,
+       ort01 type kna1-ort01,
+       stras type kna1-stras,
+       regio type kna1-regio,
+       END OF ty_kna1.
+
+data ti_kna1 type table of ty_kna1.
+
+data wa_kna1 type ty_kna1.
+
+parameter p_kunnr type kna1-kunnr.
+
+START-OF-SELECTION.
+
+select kunnr
+       name1
+       name2
+       ort01
+       stras
+       regio
+       from kna1
+       into table ti_kna1
+       where kunnr = p_kunnr.
+
+loop at ti_kna1 into wa_kna1.
+
+  write: / wa_kna1-name1,
+           wa_kna1-name2,
+           wa_kna1-ort01,
+           wa_kna1-stras,
+           wa_kna1-regio.
+
+endloop.
